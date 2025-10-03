@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anna Schaefers</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  div#show {
+    width: calc(100vw - 20rem);
+    margin: 0 auto;
+    overflow: auto;
+    padding: 10px;
+  }
+
+  div#show > div.gallery-item {
+    float: left;
+        width: calc(50% - 2%);
+        margin: 1%;
+        padding: 15px;
+       background: rgba(0, 0, 139, 0.5)
+        border: 2px solid #0575e6;
+        color: #03396c;
+        border-radius: 15px;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  div#show div.gallery-item.destacado {
+    width: calc(100% - 2%);
+    height: 700px;
+    float: none;
+    margin: 1%;
+    padding: 15px;
+    background: black;
+    color: darkorange;
+    border: 5px solid #ffa500;
+    border-radius: 15px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  div#show div.fin {
+    width: calc(100% - 2%);
+    margin: 1% auto;
+    float: none;
+    background: black;
+    color: darkorange;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    border: 5px solid #ffa500;
+  }
+
+  div#show img {
+    width: calc(100vw - 30rem);
+    height: 500px;
+    display: block;
+    margin: 10px 0;
+    border-radius: 15px;
+    object-fit: cover; 
+  }
+
+  div#show h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    font: serif;
+    color: darkorange;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
+  }
+
+  div#show p {
+    font-size: 1em;
+    margin-bottom: 5px;
+  }
+
+  div#show span.rating {
+    font-weight: bold;
+    color: darkorange;
+  }
+
+  .back-link {
+    color: darkorange;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .back-link:hover {
+    color: blue;
+  }
+
+  #myChart {
+    width: 100%;
+    height: 300px;
+    float: none;
+    margin: 40px;
+    padding: 15px;
+    background: white;
+    color: darkorange;
+    border-radius: 15px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
+  }
+</style>
+</head>
+<body>
+
+<div id="show"></div>
+
+<script>
+const trabajos = [
+  {
+    title: "Anna Schäfers",
+    category: "destacado",
+    photo: "film.jpg",
+    description: "Änna Schäfers dedicates themself to film, photography an animation under the pseudonym “Fixie Motion” and is studying visual communication at the Bauhaus University in Weimar."  }];
+
+const portfolio = document.querySelector("#show");
+
+trabajos.forEach((v) => {
+  portfolio.innerHTML += `
+    <div class="gallery-item ${v.category}">
+      <h3>${v.title}</h3>
+      <img src="${v.photo}" alt="${v.title}">
+      <p>${v.description}</p>
+    </div>
+  `;
+});
+
+
+portfolio.innerHTML += `
+  <div class="gallery-item destacado">
+  <h3>Evolution of project types</h3>
+  <canvas id="myChart" style="width:100%; height:300px;"></canvas>
+</div>
+`;
+
+
+portfolio.innerHTML += 
+`  <div class="fin">
+    <a href="index.html" class="back-link">Go back to home</a>
+  </div>`;
+
+
+const labels = ['2022','2023','2024','2025'];
+const data = {
+  labels: ['2022','2023','2024','2025'],
+  datasets: [
+    {
+      label: 'Photography Projects',
+      data: [6,5,3,2],
+      backgroundColor: 'rgba(255,150,0,0.7)'
+    },
+    {
+      label: 'Film Projects',
+      data: [5,6,4,5],
+      backgroundColor: 'rgba(0,0,200,0.7)'
+    }
+  ]
+};
+
+const config = { 
+  type: 'bar', 
+  data: data, 
+  options: { 
+    responsive:true, 
+    maintainAspectRatio:false, 
+    scales: {
+      y: { beginAtZero: true }
+    },
+    plugins: {
+      legend: {
+        labels: { usePointStyle: true, pointStyle: 'circle' }
+      }
+    }
+  } 
+};
+
+new Chart(document.getElementById('myChart'), config);
+</script>
+
+</body>
+</html>
